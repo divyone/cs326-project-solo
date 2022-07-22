@@ -1,23 +1,20 @@
+import { Year } from './year.js'
+
 let yearBttn = document.getElementById('yearbttn');
+let yearElem = document.getElementById('year');
+let topYear = document.getElementById('topYear');
 
-yearBttn.addEventListener('click', () => showOrHide('year'));
+let y = new Year();
+y.render(yearElem);
+y.top5Render(topYear);
+
+yearElem.style.display = 'none'
+topYear.style.display = 'none'
 
 
+yearBttn.addEventListener('click', () => y.showOrHide('year'));
+//yearBttn.addEventListener('click', () => y.showOrHide('topYear'));
 
-//button show
-function showOrHide(displayElem){
-  let elem = document.getElementById(displayElem);
+y.monthEvents();
 
-  if(elem.style.display === 'none'){
-    elem.style.display = 'block';
-  }
-  else{
-    elem.style.display = 'none';
-  }
-}
-
-function render(element){
-  element.innerHTML = '';
-  
-  
-}
+topYear.addEventListener('keyup', () => y.saveMonthEvents());
