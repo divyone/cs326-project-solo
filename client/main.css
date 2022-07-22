@@ -1,13 +1,66 @@
+/* Year.js css*/
 .bttn{
 
 }
 
 #year{
-  width: 600px;
-  height: 600px;
-  margin: auto;
+  width: 400px;
+  height: 300px;
+  float: left;
   display: grid;
-  grid-template-columns: repeat(4,150px);
+  grid-template-columns: 100px 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
   border: 1px solid black;
 
+}
+
+.year-item {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year-item:hover{
+  background-color: lightgrey !important;
+}
+
+.top5{
+  width: 200px;
+  height: 300px;
+  float: right;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 200px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px;
+  border: 1px solid black;
+}
+
+.top-item {
+  width: 98%;
+  height: 50px;
+  border: 1px solid black;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-title {
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
