@@ -10,7 +10,7 @@ export class Week{
             "June","July","August","September","October",
             "November","December"];
 
-    this.data = {}
+    this.data = {};
     if(window.localStorage.getItem('tasksData') !== null){
       console.log('1')
       this.data = JSON.parse(window.localStorage.getItem('tasksData'));

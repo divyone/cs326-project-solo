@@ -11,6 +11,8 @@ let previousElem = document.getElementById('previous');
 let nextElem = document.getElementById('next');
 let calendarElem = document.getElementById('calendar');
 let weeklyViewElem = document.getElementById('week');
+let resetBttn = document.getElementById('resetbttn');
+
 
 //YEARLY VIEW
 //render year and top 5 events
@@ -44,6 +46,20 @@ let weekElem = document.querySelectorAll('.week-item')
 
 addEventListenerDays(daysElem);
 w.displayWeek(c.month, c.week);
+
+//RESET BUTTON
+resetBttn.addEventListener('click', () => { 
+  window.localStorage.clear();
+  //render year
+  y.render(yearElem);
+  y.top5Render(topYear);
+  
+  //render week
+  w.data = {};
+  w.createData();
+  w.displayWeek(c.month, c.week);
+  console.log(localStorage);
+});
 
 //Event Listners
 monthBttn.addEventListener('click', () => {
