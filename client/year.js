@@ -17,9 +17,7 @@ export class Year{
       }
 
     }
-
-    console.log(this.events);
-    
+    console.log(this.events);  
   }
 
    /**
@@ -33,14 +31,11 @@ export class Year{
 
     for(let i = 0; i < 3; ++i){
       for(let j = 0; j < 4; ++j){
-        //console.log(this.months[i][j]);
         const div = document.createElement('div');
+
         div.setAttribute("id", this.months[count]);
         div.classList.add('year-item');
         div.innerText = this.months[count];
-
-        
-
         element.appendChild(div);
         count++;
       }
@@ -56,7 +51,6 @@ export class Year{
   top5Render(element){
     element.innerHTML = '';;
 
-
     for(let i = 0; i < 5; ++i){
       if(i === 0){
         const div = document.createElement('div');
@@ -68,8 +62,7 @@ export class Year{
       input.setAttribute("id", this.eventIDs[i]);
       input.setAttribute("type", "text");
       input.classList.add('top-item');
-      element.appendChild(input);
-      
+      element.appendChild(input);   
     }
   }
 
@@ -84,32 +77,18 @@ export class Year{
     let yearItemElem = document.getElementsByClassName('year-item');
     this.months.forEach((month, i) =>{
       let monthElem = document.getElementById(month);
-      //monthElem.addEventListener('click', () => this.showOrHide('topYear'));
+
       monthElem.addEventListener('click', () => {
         this.setMonnthEvents(i);
         this.showEvent('topYear');
-
-        //console.log(yearItemElem);
 
         for(let j = 0; j < 12; ++j){
           topYearElem.classList.remove('m' + j);
           yearItemElem[j].style.backgroundColor = 'white';
         }
         topYearElem.classList.add('m' + i);
-
-        console.log('hi');
-
-        
-        //yearItemElem.style.backgroundColor = 'white'
         monthElem.style.backgroundColor = 'lightsteelblue';
-
-
-
-        //console.log(window.localStorage);
-
-        //this.saveMonthEvents(i);
       });
-
     });
   }
 
@@ -122,22 +101,17 @@ export class Year{
    */
   setMonnthEvents(index){
     let eventsForMonth = this.events[index];
-    //console.log(eventsForMonth);
 
     for(let i = 0; i < 5; ++i){
       let element = document.getElementById(this.eventIDs[i]);
-      //console.log(element);
+
       if(eventsForMonth[i] !== null){
         element.value = eventsForMonth[i];
       }
       else{
         element.value = '';
       }
-
-      //console.log(element.value);
-      
-    }
-    
+    } 
   }
 
   /**
@@ -145,22 +119,14 @@ export class Year{
    * 
    */
   saveMonthEvents(){
-    //console.log(this.getCurrEvents());
     let topYearElem = document.getElementById('topYear');
-
-    
-    //console.log("hello");
-
     let topEvents = this.getCurrEvents();
-    //console.log(topEvents)
 
     for(let i = 0; i < 12; ++i){
       if(topYearElem.classList.contains('m' + i)){
         this.events[i] = topEvents;
       }
     }
-
-    //console.log(this.events);
     this.saveState();  
   }
 
@@ -174,7 +140,6 @@ export class Year{
 
     for(let i = 0; i < 5; ++i){
       let element = document.getElementById(this.eventIDs[i]);
-
       if(element.value === ''){
         arr.push(null);
       }
@@ -182,8 +147,6 @@ export class Year{
         arr.push(element.value);
       } 
     }
-
-    
     return arr;
   }
 
@@ -223,7 +186,6 @@ export class Year{
    */
   showEvent(displayElem){
     let elem = document.getElementById(displayElem);
-  
     if(elem.style.display === 'none'){
       elem.style.display = 'grid';
     }
@@ -237,7 +199,6 @@ export class Year{
    */
   hideEvent(displayElem){
     let elem = document.getElementById(displayElem);
-  
     if(elem.style.display === 'grid'){
       elem.style.display = 'none';
     }
@@ -260,5 +221,4 @@ export class Year{
       this.hideEvent('topYear');
     }
   }
-
 }

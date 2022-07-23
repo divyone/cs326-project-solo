@@ -1,7 +1,7 @@
-/* Year.js css*/
 .bttn{
 
 }
+/* Year.js css*/
 
 #year{
   width: 400px;
@@ -11,6 +11,8 @@
   grid-template-columns: 100px 100px 100px 100px;
   grid-template-rows: 100px 100px 100px;
   border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 30px;
 
 }
 
@@ -31,18 +33,20 @@
 }
 
 .top5{
-  width: 200px;
+  width: 400px;
   height: 300px;
-  float: right;
+  float: left;
   margin: auto;
   display: grid;
-  grid-template-columns: 200px;
+  grid-template-columns: 400px;
   grid-template-rows: 50px 50px 50px 50px 50px 50px;
   border: 1px solid black;
+  margin-left: 20px; 
+  margin-top: 20px;
 }
 
 .top-item {
-  width: 98%;
+  width: 99%;
   height: 50px;
   border: 1px solid black;
   text-transform: uppercase;
@@ -54,7 +58,7 @@
 }
 
 .top-title {
-  width: 200px;
+  width: 400px;
   height: 50px;
   border: 1px solid black;
   text-transform: uppercase;
@@ -68,12 +72,17 @@
 
 
 /* week/calendar.js css*/
+#monthbttn{
+  
+}
 
 #week{
   display: grid;
   grid-template-columns: repeat(3, 400px);
   grid-template-rows: repeat(3, 200px);
   gap: 20px;
+  clear: both;
+  margin-top: 20px;
 }
 
 #calendar{

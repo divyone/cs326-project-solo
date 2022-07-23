@@ -102,61 +102,55 @@ export class Calendar{
    */
   render(element){
     let monthElem = document.getElementById('month'); 
-    let count = 1; //count days visited in current month
+    let count = 1; //counts days visited in current month
     let countNext = 1; //counts days visited in next month
+
+    this.week = 'week0' //default open to week0
     this.removeCalenderElements();
-    monthElem.innerText = this.m[this.month] + " " + this.year;
-    this.week = 'week0'
+    monthElem.innerText = this.m[this.month] + " " + this.year; //calendar heading
 
-    //console.log(this.currM);
-
-    for(let i = 0 ; i < 6; ++i){
-      for(let j = 0; j < 7; ++j){
+    //render calendar
+    for(let i = 0 ; i < 6; ++i){ //iterate through weeks
+      for(let j = 0; j < 7; ++j){ //iterate through days in week
         const div = document.createElement('div');
 
-        if(i === 0 && j < this.firstDay){
+        if(i === 0 && j < this.firstDay){ //check if previous months day can be seen
           let prevTotalDays = this.prevMonthDays() + j;
           div.classList.add('prevMonth');
           div.innerHTML = "" + prevTotalDays;
         }
-        else if(this.totalDays - count < 0){
+        else if(this.totalDays - count < 0){ //check if next months days can be seen
           div.classList.add('nextMonth');
           div.innerHTML = "" + countNext;
           countNext++;
         }
         else{
-          //div.classList.add("day" + count);
         div.classList.add('currMonth');
         div.innerHTML = "" + count;
-        this.week = (count === this.date && this.currMonth === this.month && this.currYear === this.year) ? 'week' + i : this.week;
+        if(count === this.date && this.currMonth === this.month && this.currYear === this.year){
+          this.week = 'week' + i //when viewing current month change default week
+        }
         this.highlightToday(div, count, this.year, this.month);
         count++;
         }
+
         div.classList.add('days');
         div.classList.add('week' + i);
-
-        div.addEventListener('click', () => {//               removethis
-          console.log(this.month);
-          console.log('week' + i);
+        //change color of week pressed when you click on a day
+        div.addEventListener('click', () => {
           this.week = 'week' + i;
-          //console.log(div);
           this.highlightClicked(document.querySelectorAll('.week' + i));
         });
-
 
         element.appendChild(div);
       }
     }
-    //console.log(this.week);
-    //console.log(this.currM);
-    //console.log(this.month);
+    //change color of week being viewed
     this.highlightClicked(document.querySelectorAll('.' + this.week));
-
-
   }
 
   /**
-   * This method get all elements with the class 'prevMonth', 'currMonth', and 'nextMonth'.
+   * This method gets all elements with the class 'prevMonth', 'currMonth', and 'nextMonth'.
    * Check if the HTML Collection is not empty then it calls for the helper method.
    * 
    */
@@ -202,7 +196,6 @@ export class Calendar{
     if(this.firstDayOfMonth(this.year, this.month) !== 0 ){
       firstPrevDayAvailable = prevTotalDays - this.firstDayOfMonth(this.year, this.month) + 1
     }
-
     return firstPrevDayAvailable;
   }
 
@@ -225,7 +218,7 @@ export class Calendar{
     return prevData
   }
 
-  /** EDIT THIS FUNCTION MAY NOT ACTUALLY WORK***************************************
+  /** 
    * This method turns the font of the current day of the month to red 
    * 
    * @param elem  HTML collection of DOM Elements   ??????
@@ -234,19 +227,8 @@ export class Calendar{
    * @param {number} month month being viewed in calendar
    */
   highlightToday(elem, count, year, month){
-    //let dNew = new Date();
-    //let currYear = dNew.getFullYear();
-    //let currMonth = dNew.getMonth();
-    
     if((this.date === count) && (year === this.currYear) && (month === this.currMonth)){
-      console.log(this.currYear);
-      console.log(this.currMonth);
-
-      console.log(count);
-      console.log(this.date );
-
       elem.style.color = 'red';
-
     }
   }
 
@@ -259,14 +241,7 @@ export class Calendar{
   highlightClicked(elem){
     let days = document.querySelectorAll('.days');
 
-    days.forEach(day => {
-      //day.classList.remove('clicked');
-      day.style.backgroundColor = 'white';
-    });
-
-    elem.forEach( e =>{
-      e.style.backgroundColor = 'lightsteelblue';
-    });
-    //elem.classList.add('clicked');
+    days.forEach(day => { day.style.backgroundColor = 'white'; });
+    elem.forEach( e => { e.style.backgroundColor = 'lightsteelblue'; });
   }
 }
