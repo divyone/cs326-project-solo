@@ -54,3 +54,6 @@ look like a normal calendar.
 <img width="1440" alt="Screen Shot 2022-07-23 at 2 01 01 AM" src="https://user-images.githubusercontent.com/106116264/180593828-9d697483-a20f-4006-8f54-c438d5e5aaa4.png">
 <img width="1440" alt="Screen Shot 2022-07-23 at 2 01 10 AM" src="https://user-images.githubusercontent.com/106116264/180593837-87d4dbfd-2903-445b-baa6-d13f4026639b.png">
 <img width="1440" alt="Screen Shot 2022-07-23 at 2 01 17 AM" src="https://user-images.githubusercontent.com/106116264/180593838-492fa66a-f4a2-4ee3-a03e-6998996278b4.png">
+
+## Video of application running
+https://www.loom.com/share/9be2ecd3a55049f99d33b63633fa07af
