@@ -1,3 +1,7 @@
+import express from 'express';
+import { Database } from './database.js';
+import logger from 'morgan';
+
 class expenseServer {
   constructor(dburl) {
     this.dburl = dburl;
@@ -33,6 +37,16 @@ class expenseServer {
         response.status(500).send(err);
       }
     });
+
+    //Implement the /top5Expenses endpoint
+    this.app.get('/top5Expenses', async (request, response) => {
+      try {
+        const expense = await self.db.getExpenses();
+        response.send(JSON.stringify(expense));
+      } catch (err) {
+        response.status(500).send(err);
+      }
+    });
   
     //Implement the /deleteExpense endpoint
     this.app.get('/deleteExpense', async (request, response) => {
@@ -48,7 +62,7 @@ class expenseServer {
     });
   
     //Implement the /deleteAll endpoint
-    this.app.delete('/deleteAll', async (request, response) => {
+    this.app.get('/deleteAll', async (request, response) => {
       try {
         const expense = await self.db.deleteExpense(id);
         response.send(JSON.stringify(expense));
