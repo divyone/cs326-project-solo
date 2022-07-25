@@ -12,6 +12,11 @@ let nextElem = document.getElementById('next');
 let calendarElem = document.getElementById('calendar');
 let weeklyViewElem = document.getElementById('week');
 let resetBttn = document.getElementById('resetbttn');
+let expenseBttn = document.getElementById('expensebttn');
+let showBttn = document.getElementById('showbttn');
+let deleteBttn = document.getElementById('deletebttn');
+let descriptionElem = document.getElementById('description');
+let costElem = document.getElementById('cost');
 
 
 //YEARLY VIEW
@@ -126,3 +131,14 @@ function removeEventListenerDays(elem){
     e.replaceWith(e.cloneNode(true));
   });
 }
+
+//EXPENSE TRACKER
+expenseBttn.addEventListener('click', () => {
+  console.log("hello")
+  let description = descriptionElem.value;
+  console.log(description);
+
+  let cost = costElem.value;
+  console.log(cost);
+
+});
