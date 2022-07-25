@@ -1,6 +1,7 @@
 import { Year } from './year.js';
 import { Calendar } from "./calendar.js";
 import { Week } from "./week.js";
+import { Expenses } from "./expenses.js"
 
 //UI Components
 let yearBttn = document.getElementById('yearbttn');
@@ -12,7 +13,7 @@ let nextElem = document.getElementById('next');
 let calendarElem = document.getElementById('calendar');
 let weeklyViewElem = document.getElementById('week');
 let resetBttn = document.getElementById('resetbttn');
-let expenseBttn = document.getElementById('expensebttn');
+let addBttn = document.getElementById('addbttn');
 let showBttn = document.getElementById('showbttn');
 let deleteBttn = document.getElementById('deletebttn');
 let descriptionElem = document.getElementById('description');
@@ -133,12 +134,36 @@ function removeEventListenerDays(elem){
 }
 
 //EXPENSE TRACKER
-expenseBttn.addEventListener('click', () => {
-  console.log("hello")
+
+let exp = new Expenses();
+
+addBttn.addEventListener('click', () => {
+  let description = descriptionElem.value;
+  let cost = costElem.value;
+
+  exp.saveExpense(description, cost);
+});
+
+showBttn.addEventListener('click', () => {
+  console.log("hello2");
+  /*
   let description = descriptionElem.value;
   console.log(description);
 
   let cost = costElem.value;
   console.log(cost);
+  */
+
+});
+
+deleteBttn.addEventListener('click', () => {
+  console.log("hello3");
+  /*
+  let description = descriptionElem.value;
+  console.log(description);
+
+  let cost = costElem.value;
+  console.log(cost);
+  */
 
 });

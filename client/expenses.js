@@ -13,8 +13,10 @@ export class Expenses{
 
    // TODO #8: Save the word score to the server
    async saveExpense(description, cost) {
-    let expense = {id: id, description: description, cost: cost};
+    let expense = {id: this.id, description: description, cost: cost};
     this.expenses.push(expense);
+
+    console.log(this.expenses);
 
     //http://localhost:3000/saveExpense?id=6&description=Concert&cost=67.95
     //id, description, cost
@@ -56,6 +58,7 @@ export class Expenses{
   }
 
   async deleteExpenses() {
+    this.expenses = []
 
     let noSpacedescrip = description.split(" ").join("");
     let url = 'http://localhost:3000/deleteAll'
