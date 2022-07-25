@@ -61,7 +61,7 @@ export class expenseDatabase {
     const queryText = 'SELECT * FROM budget';
     const res = await this.client.query(queryText);
     
-    const sorted = res.rows.sort((a, b) => b.score - a.score);
+    const sorted = res.rows.sort((a, b) => b.cost - a.cost);
     const top = sorted.slice(0, 5);
     return top;
   }

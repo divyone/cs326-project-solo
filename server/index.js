@@ -1,5 +1,5 @@
 import express from 'express';
-import { Database } from './database.js';
+import { expenseDatabase } from './database.js';
 import logger from 'morgan';
 
 class expenseServer {
@@ -41,7 +41,7 @@ class expenseServer {
     //Implement the /top5Expenses endpoint
     this.app.get('/top5Expenses', async (request, response) => {
       try {
-        const expense = await self.db.getExpenses();
+        const expense = await self.db.top5Expenses();
         response.send(JSON.stringify(expense));
       } catch (err) {
         response.status(500).send(err);
@@ -64,7 +64,7 @@ class expenseServer {
     //Implement the /deleteAll endpoint
     this.app.get('/deleteAll', async (request, response) => {
       try {
-        const expense = await self.db.deleteExpense(id);
+        const expense = await self.db.deleteAll();
         response.send(JSON.stringify(expense));
       } catch (err) {
         response.status(500).send(err);
@@ -75,7 +75,7 @@ class expenseServer {
   
   //Initialize database
   async initDb() {
-    this.db = new Database(this.dburl);
+    this.db = new expenseDatabase(this.dburl);
     await this.db.connect();
   }
   
@@ -92,5 +92,5 @@ class expenseServer {
   
  
 //create and start server
-const server = new scoreServer(process.env.DATABASE_URL);
+const server = new expenseServer(process.env.DATABASE_URL);
 server.start();
