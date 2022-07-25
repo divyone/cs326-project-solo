@@ -1,22 +1,82 @@
-import express from 'express';
-import logger from 'morgan';
+class expenseServer {
+  constructor(dburl) {
+    this.dburl = dburl;
+    this.app = express();
+    this.app.use('/', express.static('client'));
+  }
+  
+  async initRoutes() {
+    // Note: when using arrow functions, the "this" binding is lost.
+    const self = this;
+  
+    //Implement the /saveExpense endpoint
+    this.app.post('/saveExpense', async (request, response) => {
+      try {
+        const options = request.query;
+        const id = options.id;
+        const description = options.description;
+        const cost = parseInt(options.cost);
+  
+        const expense = await self.db.saveExpense(id, description, cost);
+        response.send(JSON.stringify(expense));
+      } catch (err) {
+        response.status(500).send(err);
+      }
+    });
+  
+    //Implement the /getExpenses endpoint
+    this.app.get('/getExpenses', async (request, response) => {
+      try {
+        const expense = await self.db.getExpenses();
+        response.send(JSON.stringify(expense));
+      } catch (err) {
+        response.status(500).send(err);
+      }
+    });
+  
+    //Implement the /deleteExpense endpoint
+    this.app.get('/deleteExpense', async (request, response) => {
+      try {
+        const options = request.query;
+        const id = options.id;
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(logger('dev'));
-app.use('/', express.static('client'));
-
-
-
-
-// This matches all routes that are not defined.
-app.all('*', async (request, response) => {
-  response.status(404).send(`Not found: ${request.path}`);
-});
-
-app.listen(port, () => {
-  console.log(`Server started on poart ${port}`);
-});
+        const expense = await self.db.deleteExpense(id);
+        response.send(JSON.stringify(expense));
+      } catch (err) {
+        response.status(500).send(err);
+      }
+    });
+  
+    //Implement the /deleteAll endpoint
+    this.app.delete('/deleteAll', async (request, response) => {
+      try {
+        const expense = await self.db.deleteExpense(id);
+        response.send(JSON.stringify(expense));
+      } catch (err) {
+        response.status(500).send(err);
+      }
+    });
+      
+  }
+  
+  //Initialize database
+  async initDb() {
+    this.db = new Database(this.dburl);
+    await this.db.connect();
+  }
+  
+  //start server
+  async start() {
+    await this.initRoutes();
+    await this.initDb();
+    const port = process.env.PORT || 3000;
+    this.app.listen(port, () => {
+      console.log(`Server listening on port ${port}!`);
+    });
+  }
+ }
+  
+ 
+//create and start server
+const server = new scoreServer(process.env.DATABASE_URL);
+server.start();
