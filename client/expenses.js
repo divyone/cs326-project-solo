@@ -1,7 +1,5 @@
 export class Expenses{
   constructor(){
-    this.expenses = [];
-
     this.id = 1;
     if(window.localStorage.getItem('id') !== null){
       this.id = Number(window.localStorage.getItem('id'));
@@ -9,33 +7,23 @@ export class Expenses{
 
   }
 
-
-
-   // TODO #8: Save the word score to the server
+   //Save the expense to the database
    async saveExpense(description, cost) {
-    let expense = {id: this.id, description: description, cost: cost};
-    this.expenses.push(expense);
-
-    console.log(this.expenses);
-
-    //http://localhost:3000/saveExpense?id=6&description=Concert&cost=67.95
-    //id, description, cost
-
-    let noSpacedescrip = description.split(" ").join("");
-    let url = 'http://localhost:3000/saveExpense?id=' + this.id + '&description='+ description + '&cost=' + cost;
+    let noSpaceDescrip = description.split(" ").join("");
+    let url = '/saveExpense?id=' + this.id + '&description='+ noSpaceDescrip + '&cost=' + cost;
     let response = await fetch(url, {method: 'POST'});
-    let data = await response;
-    console.log(data);
-    //console.log(await response.json());
+    let data = await response.json();
 
     this.id++;
     window.localStorage.setItem('id', this.id.toString());
   }
 
-  render(element) {
+  //Render table of expenses saved in database
+  async render(element) {
+    let currExpesnes = await this.getExpenses();
     let html = '<h1>Expenses</h1>';
     html += '<table border="1" width="50%">';
-    this.expenses.forEach((exp) => {
+    currExpesnes.forEach((exp) => {
       html += `
         <tr>
           <td>${exp.description}</td>
@@ -47,24 +35,44 @@ export class Expenses{
     element.innerHTML = html;
   }
 
+  //get all expenses from database
   async getExpenses() {
-
-    let noSpacedescrip = description.split(" ").join("");
-    let url = 'http://localhost:3000/getExpenses'
+    let url = '/getExpenses'
     let response = await fetch(url, {method: 'GET'});
-    let data = await response;
-    console.log(data);
-    //console.log(await response.json());
+    let data = await response.json();
+    return data;
   }
 
+  //delete all expenses from database
   async deleteExpenses() {
-    this.expenses = []
-
-    let noSpacedescrip = description.split(" ").join("");
-    let url = 'http://localhost:3000/deleteAll'
+    let url = '/deleteAll'
     let response = await fetch(url, {method: 'GET'});
-    let data = await response;
-    console.log(data);
-    //console.log(await response.json());
+    let data = await response.json();
+
+    this.id = 1;
+    window.localStorage.setItem('id', this.id.toString());
+  }
+
+  async totalExpenses(){
+    let totalElem = document.getElementById('total');
+    let currExpesnes = await this.getExpenses();
+    let total = 0;
+
+    if(currExpesnes.length !== 0){
+      currExpesnes.forEach(expense => {
+        total += expense.cost
+      });
+    }
+    totalElem.value = total;
+  }
+
+  //hide and show Expense Tracker
+  showOrHide(elem){
+    if(elem.style.display === 'none'){
+      elem.style.display = 'block';
+    }
+    else{
+      elem.style.display = 'none';
+    }
   }
 }

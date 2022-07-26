@@ -18,6 +18,11 @@ let showBttn = document.getElementById('showbttn');
 let deleteBttn = document.getElementById('deletebttn');
 let descriptionElem = document.getElementById('description');
 let costElem = document.getElementById('cost');
+let expenseTrackerElem = document.getElementById('expenseTracker');
+let expenseBttn = document.getElementById('expensebttn');
+let allExpensesElem = document.getElementById('allExpenses');
+let hideExpBttn = document.getElementById('hideExpbttn');
+
 
 
 //YEARLY VIEW
@@ -134,36 +139,42 @@ function removeEventListenerDays(elem){
 }
 
 //EXPENSE TRACKER
-
 let exp = new Expenses();
 
+expenseTrackerElem.style.display = 'none'
+exp.totalExpenses();
+
+//show and hided expense tracker
+expenseBttn.addEventListener('click', () => {
+  exp.showOrHide(expenseTrackerElem);
+});
+
+//Add new expense to database and update total expenses
 addBttn.addEventListener('click', () => {
   let description = descriptionElem.value;
   let cost = costElem.value;
 
   exp.saveExpense(description, cost);
+  exp.totalExpenses();
+  exp.render(allExpensesElem);
+  descriptionElem.value = "";
+  costElem.value = "";
+  allExpensesElem.style.display = 'block';
 });
 
+//show all expenses
 showBttn.addEventListener('click', () => {
-  console.log("hello2");
-  /*
-  let description = descriptionElem.value;
-  console.log(description);
-
-  let cost = costElem.value;
-  console.log(cost);
-  */
-
+  exp.render(allExpensesElem);
+  allExpensesElem.style.display = 'block';
 });
 
+//delete all expenses
 deleteBttn.addEventListener('click', () => {
-  console.log("hello3");
-  /*
-  let description = descriptionElem.value;
-  console.log(description);
+  exp.deleteExpenses();
+  exp.totalExpenses();
+  allExpensesElem.style.display = 'none';
+});
 
-  let cost = costElem.value;
-  console.log(cost);
-  */
-
+hideExpBttn.addEventListener('click', () =>{
+  allExpensesElem.style.display = 'none';
 });

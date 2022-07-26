@@ -19,7 +19,7 @@ class expenseServer {
         const options = request.query;
         const id = options.id;
         const description = options.description;
-        const cost = parseInt(options.cost);
+        const cost = Number(options.cost);
   
         const expense = await self.db.saveExpense(id, description, cost);
         response.send(JSON.stringify(expense));
